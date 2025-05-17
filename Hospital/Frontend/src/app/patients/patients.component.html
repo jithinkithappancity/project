@@ -1,0 +1,102 @@
+<div class="two-sections">
+    <section class="left">
+        <div class="container">
+            <h1 class="page-title">Add New Patient</h1>
+            <form [formGroup]="PatientAdd" (ngSubmit)="onSubmit()">
+
+
+                <div>
+
+                        <mat-form-field >
+                          <mat-label>Name</mat-label>
+                          <input matInput formControlName="name">
+                        </mat-form-field>
+
+                        <div *ngIf="PatientAdd.get('name')?.invalid && PatientAdd.get('name')?.touched">
+                           <small style="color: red;">Name is required</small>
+                       </div>
+                     
+        
+                </div> 
+
+                <div>
+                    <mat-form-field>
+                        <mat-label>Age</mat-label>
+                        <input type="number"  matNativeControl formControlName="age">
+                           
+                     </mat-form-field>
+
+                     <div *ngIf="PatientAdd.get('age')?.invalid && PatientAdd.get('age')?.touched">
+                           <small style="color: red;">Age is required</small>
+                       </div>
+        
+                </div>
+              
+                
+        
+                 <div>
+                    <mat-form-field>
+                        <mat-label>Gender</mat-label>
+                        <select matNativeControl formControlName="gender">
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                        
+                        </select>
+                      </mat-form-field>
+
+                      <div *ngIf="PatientAdd.get('gender')?.invalid && PatientAdd.get('gender')?.touched">
+                           <small style="color: red;">Gender is required</small>
+                       </div>
+        
+                </div>
+              
+    
+                <div class="example-button-row">
+                    <button *ngIf="!editmode" mat-flat-button style="width: 177px;" type="submit" [disabled]="PatientAdd.invalid">Add Patient</button>
+                   <button *ngIf="editmode" mat-flat-button style="width: 177px; background-color: darkmagenta;" type="submit" [disabled]="PatientAdd.invalid">Update Patient</button>
+                </div>
+
+            </form>
+         
+
+        </div>
+        
+       
+
+          
+
+    </section>
+
+
+    <section class="right">
+        <h1>PATIENTS {{patientCount}} </h1>
+        <div  class="carddata">
+            <mat-card class="horizontal-card" *ngFor="let patient of patients">
+                <div class="card-content">
+                  <div class="text-content">
+                    <mat-card-content >
+                       
+                         <p><strong> Patient:</strong> {{patient.name}} </p>
+                         <p><strong> Age:</strong> {{patient.age}}</p>
+                        <p><strong> Gender:</strong>  {{patient.gender}}</p>
+                       
+                        <span >
+                            <button mat-button class="editButton" style="color: black; width: 120px;" (click)="updatePatient(patient)">UPDATE</button>
+                            <button mat-button class="deleteButton" style="color: black;width: 120px; margin-left: 10px;" (click)="deletePatient(patient._id)">DELETE</button>
+                        </span>
+
+                    </mat-card-content>
+                   
+                  </div>
+                </div>
+              </mat-card>
+           
+          </div>
+
+         
+          
+    </section>
+  </div>
+
+
+

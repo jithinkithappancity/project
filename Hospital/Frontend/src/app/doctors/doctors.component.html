@@ -1,0 +1,87 @@
+<div class="two-sections">
+    <section class="left">
+        <div class="container">
+            <h1 class="page-title">Add New Doctor</h1>
+            <form [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
+
+
+                <div>
+
+                        <mat-form-field >
+                          <mat-label>Name</mat-label>
+                          <input matInput formControlName="name">
+                        </mat-form-field>
+                     <div *ngIf="doctorForm.get('name')?.invalid && doctorForm.get('name')?.touched">
+                        <small style="color: red;">Name is required</small>
+                      </div>
+        
+                </div> 
+                
+        
+                 <div>
+                    <mat-form-field>
+                        <mat-label>Speciality</mat-label>
+                        <select matNativeControl formControlName="specialization">
+                          <option value="Internalmedicine">Internal medicine</option>
+                          <option value="Emergencymedicine">Emergency medicine</option>
+                          <option value="Pediatrics">Pediatrics</option>
+                          <option value="Neurology">Neurology</option>
+                          <option value="Pathology">Pathology</option>
+                          <option value="Psychiatry">Psychiatry</option>
+                        </select>
+                      </mat-form-field>
+                      <div *ngIf="doctorForm.get('specialization')?.invalid && doctorForm.get('specialization')?.touched">
+                           <small style="color: red;">Specialization is required</small>
+                       </div>
+        
+                </div>
+              
+    
+                <div class="example-button-row">
+                    <button *ngIf="!editmode" mat-flat-button style="width: 177px;"  type="submit" [disabled]="doctorForm.invalid">AddDoctor</button>
+                   <button *ngIf="editmode" mat-flat-button style="width: 177px;"  type="submit" [disabled]="doctorForm.invalid">UpateDoctor</button>
+                  </div>
+
+            </form>
+         
+
+        </div>
+        
+       
+
+          
+
+    </section>
+
+
+    <section class="right">
+        <h1>DOCTORS {{doctorsCount}}</h1>
+        <div  class="carddata"  *ngFor="let doctor of doctors">
+            <mat-card class="horizontal-card">
+                <div class="card-content">
+                <img mat-card-image src="/image.jpg" alt="Local Image">
+                  <div class="text-content">
+                    <mat-card-content>
+                       
+                         <p>Patient: {{doctor.name}} </p>
+                        <p>Doctor:  {{doctor.specialization}}</p>
+                       
+                        <span >
+                            <button mat-button class="editButton" style="color: black;" (click)="editDoctor(doctor)" >UPDATE</button>
+                            <button mat-button class="deleteButton" style="color: black;" (click)="deleteUser(doctor._id)"  >DELETE</button>
+                        </span>
+
+                    </mat-card-content>
+                   
+                  </div>
+                </div>
+              </mat-card>
+           
+          </div>
+
+         
+          
+    </section>
+  </div>
+
+

@@ -1,0 +1,93 @@
+<div class="two-sections">
+    <section class="left">
+        <div class="container">
+            <h1 class="page-title">NEW APPOIMENT </h1>
+            <form [formGroup]="Appoiment" (ngSubmit)="onSubmit()">
+
+                <div>
+
+               <mat-form-field appearance="fill" style="width: 300px;">
+               <mat-label>Patient</mat-label>
+               <mat-select formControlName="Patient" required>
+                <mat-option *ngFor="let Pa of patientsDatas" [value]="Pa._id">
+                 {{ Pa.name }} ({{ Pa.age }}) {{ Pa.gender }}
+                </mat-option>
+                </mat-select>
+                </mat-form-field>
+
+                </div>
+                
+        
+                <div>
+                    <mat-form-field appearance="fill" style="width: 300px;">
+                      <mat-label>Doctor</mat-label>
+                          <mat-select formControlName="Doctor" required>
+                              <mat-option *ngFor="let doctor of doctors" [value]="doctor._id">
+                                Dr .{{ doctor.name }} &nbsp; {{doctor.specialization}}
+                              </mat-option>
+                          </mat-select>
+                    </mat-form-field>
+        
+                </div>
+                <div>
+                    <mat-form-field class="example-full-width" style="width: 300px;">
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="Date">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker">
+                          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                      
+                </div>
+    
+                <div class="example-button-row">
+                    <button  *ngIf="!editmode" mat-flat-button style="width: 250px;" type="submit" [disabled]="Appoiment.invalid">Add</button>
+                    <button  *ngIf="editmode" mat-flat-button style="width: 250px; background-color: rgb(19, 158, 105);" type="submit" [disabled]="Appoiment.invalid">update</button>
+                  </div>
+
+            </form>
+         
+
+        </div>
+        
+       
+
+          
+
+    </section>
+
+
+    <section class="right">
+        <h1>APPOIMENTS : {{appointmentNo}} </h1>
+        <div  class="carddata"  >
+            <mat-card class="horizontal-card" *ngFor="let app of appointments">
+                <div class="card-content">
+                <img mat-card-image src="/Appoint.png" alt="Local Image">
+                  <div class="text-content">
+                    <mat-card-content  >
+                       <p><strong>Patient : </strong> {{ app.patientId.name}} , {{ app.patientId.age}} - {{ app.patientId.gender}}</p>
+                       <p><strong>Doctor : </strong> {{app.doctorId.name}} - {{app.doctorId.specialization}}</p>
+                       <p><strong>Date : </strong> {{app.dateOfAppointment | date }}</p>
+                        <span >
+                            <button mat-button class="editButton" style="color: black;" (click)="editAppointments(app)">EDIT</button>
+                            <button mat-button class="deleteButton" style="color: black;" (click)="deleteAppoiment(app._id)">DELETE</button>
+                        </span>
+
+                    </mat-card-content>
+                   
+                  </div>
+                </div>
+              </mat-card>
+           
+          </div>
+
+         
+          
+    </section>
+  </div>
+  
+  
+   
+   
